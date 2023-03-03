@@ -1,0 +1,57 @@
+{
+  "mode": "All",
+  "policyRule": {
+    "if": {
+      "allOf": [
+        {
+          "field": "type",
+          "in": [
+          "Microsoft.Compute/virtualMachines",
+          "Microsoft.Compute/VirtualMachineScaleSets"
+          ]
+          },
+        {
+          "field": "Microsoft.Compute/imagePublisher",
+          "equals": "MicrosoftWindowsDesktop"
+        },
+        {
+          "field": "Microsoft.Compute/imageOffer",
+          "in": "[parameters('imageOffers')]"
+        },
+        {
+          "field": "Microsoft.Compute/virtualMachines/licenseType",
+          "notEquals": "Windows_Client"
+        }
+      ]
+    },
+    "then": {
+      "effect": "[parameters('effect')]"
+    }
+  },
+  "parameters": {
+    "effect": {
+      "type": "String",
+      "metadata": {
+        "displayName": "Effect",
+        "description": "Enable or disable the execution of the policy"
+      },
+      "allowedValues": [
+        "Audit",
+        "Deny",
+        "Disabled"
+      ],
+      "defaultValue": "Audit"
+    },
+    "imageOffers": {
+      "type": "Array",
+      "metadata": {
+        "displayName": "Image Offer",
+        "description": "OS images eligible for Azure Hybrid Benefit in your environment."
+      },
+      "defaultValue": [
+        "Windows-10",
+        "Windows-11"
+      ]
+    }
+  }
+}

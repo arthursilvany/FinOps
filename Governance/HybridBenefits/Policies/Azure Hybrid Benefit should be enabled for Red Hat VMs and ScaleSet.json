@@ -1,0 +1,56 @@
+{
+  "mode": "All",
+  "policyRule": {
+    "if": {
+      "allOf": [
+        {
+          "field": "type",
+          "in": [
+          "Microsoft.Compute/virtualMachines",
+          "Microsoft.Compute/VirtualMachineScaleSets"
+          ]
+          },
+        {
+          "field": "Microsoft.Compute/imagePublisher",
+          "equals": "RedHat"
+        },
+        {
+          "field": "Microsoft.Compute/imageOffer",
+          "in": "[parameters('imageOffers')]"
+        },
+        {
+          "field": "Microsoft.Compute/virtualMachines/licenseType",
+          "notEquals": "RHEL_BYOS"
+        }
+      ]
+    },
+    "then": {
+      "effect": "[parameters('effect')]"
+    }
+  },
+  "parameters": {
+    "effect": {
+      "type": "String",
+      "metadata": {
+        "displayName": "Effect",
+        "description": "Enable or disable the execution of the policy"
+      },
+      "allowedValues": [
+        "Audit",
+        "Deny",
+        "Disabled"
+       ],
+      "defaultValue": "Audit"
+    },
+    "imageOffers": {
+      "type": "Array",
+      "metadata": {
+        "displayName": "Image Offer",
+        "description": "OS images eligible for Azure Hybrid Benefit in your environment."
+      },
+      "defaultValue": [
+        "RHEL"
+      ]
+    }
+  }
+}

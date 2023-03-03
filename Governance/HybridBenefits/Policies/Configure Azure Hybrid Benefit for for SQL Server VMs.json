@@ -1,0 +1,54 @@
+{
+  "mode": "All",
+  "policyRule": {
+    "if": {
+      "allOf": [
+        {
+          "field": "type",
+          "equals": "microsoft.sqlvirtualmachine/sqlvirtualmachines"
+        },
+        {
+          "field": "Microsoft.SqlVirtualMachine/SqlVirtualMachines/sqlImageSku",
+          "in": [
+            "Standard",
+            "Enterprise"
+          ]
+        },
+        {
+          "field": "Microsoft.SqlVirtualMachine/SqlVirtualMachines/sqlServerLicenseType",
+          "notEquals": "AHUB"
+        }
+      ]
+    },
+    "then": {
+      "effect": "[parameters('effect')]",
+      "details": {
+        "roleDefinitionIds": [
+          "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+        ],
+        "conflictEffect": "Audit",
+        "operations": [
+          {
+            "operation": "addOrReplace",
+            "field": "Microsoft.SqlVirtualMachine/SqlVirtualMachines/sqlServerLicenseType",
+            "value": "AHUB"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "effect": {
+      "type": "String",
+      "metadata": {
+        "displayName": "Effect",
+        "description": "Enable or disable the execution of the policy"
+      },
+      "allowedValues": [
+        "Modify",
+        "Disabled"
+      ],
+      "defaultValue": "Modify"
+    }
+  }
+}
