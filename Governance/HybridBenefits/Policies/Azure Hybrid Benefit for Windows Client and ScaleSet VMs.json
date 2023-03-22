@@ -6,21 +6,25 @@
         {
           "field": "type",
           "in": [
-          "Microsoft.Compute/virtualMachines",
-          "Microsoft.Compute/VirtualMachineScaleSets"
+            "Microsoft.Compute/virtualMachines",
+            "Microsoft.Compute/VirtualMachineScaleSets"
           ]
-          },
-        {
-          "field": "Microsoft.Compute/imagePublisher",
-          "equals": "MicrosoftWindowsDesktop"
         },
         {
-          "field": "Microsoft.Compute/imageOffer",
-          "in": "[parameters('imageOffers')]"
-        },
-        {
-          "field": "Microsoft.Compute/virtualMachines/licenseType",
-          "notEquals": "Windows_Client"
+          "anyOf": [
+            {
+              "field": "Microsoft.Compute/imagePublisher",
+              "equals": "MicrosoftWindowsDesktop"
+            },
+            {
+              "field": "Microsoft.Compute/imageOffer",
+              "in": "[parameters('imageOffers')]"
+            },
+            {
+              "field": "Microsoft.Compute/virtualMachines/licenseType",
+              "notEquals": "Windows_Client"
+            }
+          ]
         }
       ]
     },
