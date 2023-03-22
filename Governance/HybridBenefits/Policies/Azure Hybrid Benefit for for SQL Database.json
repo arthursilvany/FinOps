@@ -39,6 +39,7 @@
       },
       "allowedValues": [
         "Modify",
+        "Audit",
         "Disabled"
       ],
       "defaultValue": "Modify"
