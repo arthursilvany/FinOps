@@ -8,15 +8,19 @@
           "equals": "microsoft.sqlvirtualmachine/sqlvirtualmachines"
         },
         {
-          "field": "Microsoft.SqlVirtualMachine/SqlVirtualMachines/sqlImageSku",
-          "in": [
-            "Standard",
-            "Enterprise"
+          "anyOf": [
+            {
+              "field": "Microsoft.SqlVirtualMachine/SqlVirtualMachines/sqlImageSku",
+              "in": [
+                "Standard",
+                "Enterprise"
+              ]
+            },
+            {
+              "field": "Microsoft.SqlVirtualMachine/SqlVirtualMachines/sqlServerLicenseType",
+              "notEquals": "AHUB"
+            }
           ]
-        },
-        {
-          "field": "Microsoft.SqlVirtualMachine/SqlVirtualMachines/sqlServerLicenseType",
-          "notEquals": "AHUB"
         }
       ]
     },
@@ -46,7 +50,8 @@
       },
       "allowedValues": [
         "Modify",
-        "Disabled"
+        "Disabled",
+        "Audit"
       ],
       "defaultValue": "Modify"
     }
