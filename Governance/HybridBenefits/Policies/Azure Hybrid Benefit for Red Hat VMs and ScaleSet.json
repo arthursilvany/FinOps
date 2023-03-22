@@ -14,7 +14,7 @@
           "anyOf": [
             {
               "field": "Microsoft.Compute/imagePublisher",
-              "equals": "MicrosoftWindowsServer"
+              "equals": "RedHat"
             },
             {
               "field": "Microsoft.Compute/imageOffer",
@@ -22,7 +22,7 @@
             },
             {
               "field": "Microsoft.Compute/virtualMachines/licenseType",
-              "notEquals": "Windows_Server"
+              "notEquals": "RHEL_BYOS"
             }
           ]
         }
@@ -39,7 +39,7 @@
           {
             "operation": "addOrReplace",
             "field": "Microsoft.Compute/virtualMachines/licenseType",
-            "value": "Windows_Server"
+            "value": "RHEL_BYOS"
           }
         ]
       }
@@ -66,7 +66,7 @@
         "description": "OS images eligible for Azure Hybrid Benefit in your environment."
       },
       "defaultValue": [
-        "WindowsServer"
+        "RHEL"
       ]
     }
   }
