@@ -42,7 +42,7 @@
         "Audit",
         "Disabled"
       ],
-      "defaultValue": "Modify"
+      "defaultValue": "Audit"
     }
   }
 }
